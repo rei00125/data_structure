@@ -50,3 +50,12 @@ nav a:hover {
 .full-page-image-container a {
     margin-top: 20px;
 }
+
+/* admin_generate.html specific styles */
+table { border-collapse: collapse; width: 100%; margin-top: 1em; }
+th, td { border: 1px solid #ccc; padding: 8px; text-align: center; height: 2.5em; }
+th { background-color: #F2F2F2; }
+.header-controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1em; }
+.month-nav { font-size: 1.5em; font-weight: bold; }
+.position-name { writing-mode: vertical-rl; }
+.button { background-color: #F0F0F0; border: 1px solid #ccc; padding: 8px 16px; text-decoration: none; color: black; border-radius: 5px; font-size: 14px; }

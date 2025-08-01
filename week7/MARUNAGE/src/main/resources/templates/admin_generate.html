@@ -6,15 +6,31 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-    <div class="full-page-image-container">
-        <img th:src="@{/img/building.svg}" alt="作成中">
-        <a href="/admin/menu">雇用主メニューに戻る</a>
+    <div class="header-controls">
+        <a th:href="@{/admin/menu}" class="button">雇用主メニューに戻る</a>
+        <div class="month-nav">
+            <a th:href="@{/admin/generate(year=${year}, month=${month}-1)}">◀</a>
+            <span th:text="${year} + '年' + ${month} + '月'">2025年7月</span>
+            <a th:href="@{/admin/generate(year=${year}, month=${month}+1)}">▶</a>
+        </div>
+        <div style="width: 130px;"></div> <!-- スペーサー -->
     </div>
+    <table>
+        <thead>
+            <tr>
+                <th colspan="2"></th>
+                <th th:each="day : ${daysInMonth}" th:text="${day.dayOfMonth} + '(' + ${day.dayOfWeek.getDisplayName(T(java.time.format.TextStyle).SHORT, T(java.util.Locale).JAPANESE)} + ')'">日(曜日)</th>
+            </tr>
+        </thead>
+        <tbody th:each="pos : ${positions}">
+          <tr th:each="tz, iterStat : ${timeZones}">
+            <td th:if="${iterStat.first}" th:rowspan="${#lists.size(timeZones)}" class="position-name" th:text="${pos}">ポジション名</td>
+            <td th:text="${tz}">時間帯</td>
+            <td th:each="day : ${daysInMonth}">
+               <span th:text="${shifts[pos]?.get(tz)?.get(day.dayOfMonth)}"></span>
+            </td>
+          </tr>
+        </tbody>
+    </table>
 </body>
 </html>
-
-<!-- 
-現在仮でページを作成済み
-このページは岩﨑作成ページに置き換える
-また、ページ呼び出し時点でシフトを生成するようにする
--->
