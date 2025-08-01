@@ -2,19 +2,37 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>シフト自動生成・確認</title>
+    <title>シフト確認画面</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-    <div class="full-page-image-container">
-        <img th:src="@{/img/building.svg}" alt="作成中">
-        <a href="/admin/menu">雇用主メニューに戻る</a>
+    <div class="header-controls">
+        <a th:href="@{/admin/menu}" class="button">雇用主メニューに戻る</a>
+
+        <div class="month-nav">
+            <a href="#">◀</a>
+            <span th:text="${month} + '月'">7月</span>
+            <a href="#">▶</a>
+        </div>
+        <div style="width: 200px;"></div>
     </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th colspan="2"></th>
+                <th th:each="header : ${dayHeaders}" th:text="${header}">曜日</th>
+            </tr>
+        </thead>
+        <tbody th:each="pos : ${positions}">
+          <tr th:each="tz, iterStat : ${timeZones}">
+            <td th:if="${iterStat.first}" th:rowspan="${#lists.size(timeZones)}" class="position-name" th:text="${pos}">ポジション名</td>
+            <td th:text="${tz}">時間帯</td>
+            <td th:each="day : ${#numbers.sequence(1, 7)}">
+               <span th:text="${shifts[pos]?.get(tz)?.get(day)}"></span>
+            </td>
+          </tr>
+        </tbody>
+    </table>
 </body>
 </html>
-
-<!-- 
-現在仮でページを作成済み
-このページは岩﨑作成ページに置き換える
-また、ページ呼び出し時点でシフトを生成するようにする
--->
