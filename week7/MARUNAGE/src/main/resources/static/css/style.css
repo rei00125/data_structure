@@ -1,0 +1,52 @@
+body {
+    font-family: sans-serif;
+    padding: 1em;
+}
+
+h1 {
+    color: #333;
+}
+
+h2 {
+    color: #555;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 0.2em;
+    margin-top: 1.5em;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav li {
+    margin-bottom: 0.5em;
+}
+
+nav a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+.full-page-image-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 90vh; /* ビューポートの高さの90% */
+    text-align: center;
+}
+
+.full-page-image-container img {
+    max-width: 90%;
+    max-height: 70vh; /* 画像の高さをビューポートの70%に制限 */
+    object-fit: contain; /* アスペクト比を維持 */
+}
+
+.full-page-image-container a {
+    margin-top: 20px;
+}
