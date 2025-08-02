@@ -21,15 +21,15 @@
         <thead>
             <tr>
                 <th colspan="2"></th>
-                <th th:each="header : ${dayHeaders}" th:text="${header}">曜日</th>
+                <th th:each="dateHeader : ${dayHeaders}" th:text="${dateHeader}">曜日</th>
             </tr>
         </thead>
         <tbody th:each="pos : ${positions}">
           <tr th:each="tz, iterStat : ${timeZones}">
             <td th:if="${iterStat.first}" th:rowspan="${#lists.size(timeZones)}" class="position-name" th:text="${pos}">ポジション名</td>
             <td th:text="${tz}">時間帯</td>
-            <td th:each="day : ${#numbers.sequence(1, 7)}">
-               <span th:text="${shifts[pos]?.get(tz)?.get(day)}"></span>
+            <td th:each="date : ${dayHeaders}">
+               <span th:text="${shifts.get(pos)?.get(tz)?.get(date)}"></span>
             </td>
           </tr>
         </tbody>
