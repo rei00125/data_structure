@@ -103,4 +103,27 @@ public class ShiftController {
         }
         return "admin_generate";
     }
+
+    /**
+     * 従業員のシフト希望を一覧で表示するページ。
+     * 従業員メニューの「確定シフト確認」や管理者メニューから遷移することを想定しています。
+     * @param model ビューにデータを渡すためのモデル
+     * @return 表示するテンプレート名
+     */
+    @GetMapping("/shifts/wish-list") // 新しいURLパスを定義
+    public String showShiftWishList(Model model) {
+        // Serviceに新しく追加したメソッドを呼び出し、シフト希望データを取得
+        Map<String, Object> data = shiftService.getShiftWishData();
+
+        // Modelにデータを追加して、Thymeleafテンプレートに渡す
+        model.addAttribute("dates", data.get("dates"));
+        model.addAttribute("positions", data.get("positions"));
+        model.addAttribute("timeZones", data.get("timeZones"));
+        model.addAttribute("shiftData", data.get("shiftData"));
+        model.addAttribute("pageTitle", "シフト希望 一覧"); // ページのタイトルを渡す
+        model.addAttribute("backLink", "/employee/menu"); // 戻るリンクのURL例
+
+        // 前回の回答で提示した shift_confirmation.html を使用して表示
+        return "shift_confirmation";
+    }
 }
