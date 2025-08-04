@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>シフト確認画面</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="header-controls">
+        <a th:href="@{/admin/menu}" class="button">雇用主メニューに戻る</a>
+
+        <div class="month-nav">
+            <a href="#">◀</a>
+            <span th:text="${month} + '/21～' + ${month} + '/28'">7/21～7/28</span>
+            <a href="#">▶</a>
+        </div>
+        <div style="width: 200px;"></div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th colspan="2"></th>
+                <th th:each="dateHeader : ${dayHeaders}" th:text="${dateHeader}">曜日</th>
+            </tr>
+        </thead>
+        <tbody th:each="pos : ${positions}">
+          <tr th:each="tz, iterStat : ${timeZones}">
+            <td th:if="${iterStat.first}" th:rowspan="${#lists.size(timeZones)}" class="position-name" th:text="${pos}">ポジション名</td>
+            <td th:text="${tz}">時間帯</td>
+            <td th:each="date : ${dayHeaders}">
+               <span th:text="${shifts.get(pos)?.get(tz)?.get(date)}"></span>
+            </td>
+          </tr>
+        </tbody>
+    </table>
+</body>
+</html>

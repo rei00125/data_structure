@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${pageTitle}">シフト希望 一覧</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        body { font-family: sans-serif; padding: 1em; }
+        table { border-collapse: collapse; width: 100%; margin-top: 1em; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: center; min-height: 2em;}
+        thead th { background-color: #f2f2f2; }
+        .position-header { vertical-align: middle; background-color: #fafafa; font-weight: bold; }
+        .staff-name { margin-right: 8px; display: inline-block; }
+    </style>
+</head>
+<body>
+    <h1 th:text="${pageTitle}">シフト希望 一覧</h1>
+    <p><a th:href="@{${backLink}}">メニューに戻る</a></p>
+    
+    <!-- 表示テーブル -->
+    <table>
+        <thead>
+            <tr>
+                <th colspan="2"></th>
+                <th th:each="date : ${dates}" th:text="${date}"></th>
+            </tr>
+        </thead>
+        <tbody th:each="position : ${positions}">
+            <tr th:each="timeZone, iterStat : ${timeZones}">
+                <th th:if="${iterStat.first}" th:rowspan="${timeZones.size()}" class="position-header" th:text="${position}"></th>
+                <th th:text="${timeZone}"></th>
+                <td th:each="date : ${dates}">
+                    <th:block th:with="timeZoneMap=${shiftData.get(position)}">
+                        <th:block th:if="${timeZoneMap != null}" th:with="dateMap=${timeZoneMap.get(timeZone)}">
+                            <th:block th:if="${dateMap != null}" th:with="staffList=${dateMap.get(date)}">
+                                <th:block th:if="${staffList != null}">
+                                    <span th:each="staff : ${staffList}"
+                                        th:text="${staff}"
+                                        class="staff-name">
+                                    </span>
+                                </th:block>
+                            </th:block>
+                        </th:block>
+                    </th:block>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- デバッグ情報は削除されました -->
+
+</body>
+</html>

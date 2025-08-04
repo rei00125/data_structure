@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>雇用主向けメニュー</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <h1>雇用主向けメニュー</h1>
+    <nav>
+        <ul>
+            <li><a th:href="@{/admin/register}">従業員登録</a></li>
+            <li><a th:href="@{/admin/generate}">シフト自動生成・確認</a></li>
+        </ul>
+    </nav>
+    <a href="/">トップページに戻る</a>
+</body>
+</html>
